@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/swandevagency/simple-auth-clean-code-architecture/issues"
   },
-  "homepage": "https://github.com/swandevagency/simple-auth-clean-code-architecture#readme"
+  "homepage": "https://github.com/swandevagency/simple-auth-clean-code-architecture#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
 }
