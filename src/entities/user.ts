@@ -1,4 +1,5 @@
 export default async (information:any,requiredModules:any)=>{
+    console.log('entity')
     const {username,password}:any=information
     if(!username || username.length <3){
         throw new Error('username must have at least 3 charecters')

@@ -24,6 +24,7 @@ export default (controller:any) => {
             method : req.method,
             path : req.path
         }
+        console.log('request recievd to expcb')
         // controller(httpRequest,{frameworks}) why we should pass jwt here ??
         controller(httpRequest)
         .then((httpResponse:any) =>{

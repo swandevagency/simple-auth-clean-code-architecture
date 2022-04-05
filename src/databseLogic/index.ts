@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+require('../../models/index')
 
 export default class userFunctions {
 
