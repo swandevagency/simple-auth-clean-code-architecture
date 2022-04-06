@@ -2,46 +2,36 @@ import userFunctions from "../../databseLogic";
 // import generateToken from '../../modules/jwt/generateToken'
 import hashPassword from '../../modules/bcrypt/hashPassword'
 import validateUser from '../../entities/user'
-const requiredModules = {hashPassword}
+// const requiredModules = {hashPassword}
+const requiredModules = {}
 const user = new userFunctions
 
 export default async (username:string,password:string)=>{
     try {
-        console.log('usecase')
-        if(!username || !password){
-            return{
-                statusCode : 400,
-                body : {
-                    msg : 'provide username and password'
-                }
-            }
-        }
-        const usernameAlreadyExist = await user.getByUserName(username)
+
+        const validatedUser = await validateUser({
+            username,
+            password
+        },requiredModules);
+
+        const usernameAlreadyExist = await user.getByUserName(validatedUser.username)
         if(usernameAlreadyExist){
-            return {
-                statusCode : 400,
-                body:{
-                    msg : 'this username has already taken'
-                }
-            }
+            console.log('1 ')
+            throw new Error('this username has been taken')
         }
-        const information = {username,password}
-        const validatedUser = await validateUser(information,requiredModules)
+        const hashedPassword = await hashPassword(validatedUser.password)
+        if(!hashedPassword){
+            throw new Error('something went wrong')
+        }
+        validatedUser.password = hashedPassword
+        
         const newUser = await user.create(validatedUser.username,validatedUser.password)
         return{
-            statusCode : 200,
-            body:{
-                msg : 'user added successfully',
-                newUser
-            }
+            msg : 'user added successfully',
+            newUser
         }
     // const token = generateToken(newUser._id)
     } catch (err:any) {
-        return {
-            statusCode : 400,
-            body : {
-                msg : err.message
-            }
-        }
+        throw err
     }
 }

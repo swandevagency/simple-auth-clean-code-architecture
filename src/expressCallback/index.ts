@@ -1,9 +1,3 @@
-const jsonwebtoken = require('jsonwebtoken') // i guess its not necessary to inject frameworks here and why we are calling them frameworks? cause we are not applying any changes to data here or in usecases iam just worry if converting format of data needed that where should it be done in usecase or in entity
-const frameworks = {
-    jsonwebtoken
-}
-
-
 // module.exports = async function makeHttp(controller){
 //     (req:any,res:any) =>{
 //         const httpRequest:any = req
